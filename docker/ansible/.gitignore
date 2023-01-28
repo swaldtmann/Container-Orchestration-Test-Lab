@@ -1,0 +1,9 @@
+# .gitignore fuer ansible
+*.retry
+ansible.log
+.vscode
+collections/**
+.env
+.vault_pass
+.hcloud_token
+id_ed25519*

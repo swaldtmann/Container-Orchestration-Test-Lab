@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  containerorchestrationtestlab:
+    image: ansible-control:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./ansible:/ansible

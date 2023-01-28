@@ -1,0 +1,14 @@
+---
+# site.yml
+
+- name: Hcloud hosts update
+  import_playbook: hcloud_hosts_update.yml
+  tags: hcloud_update
+
+- name: Hcloud hosts basic install
+  import_playbook: hcloud_hosts_basic.yml
+  tags: hcloud_basic
+
+- name: Ntp configuration for all hosts
+  import_playbook: ntp.yml
+  tags: ntp

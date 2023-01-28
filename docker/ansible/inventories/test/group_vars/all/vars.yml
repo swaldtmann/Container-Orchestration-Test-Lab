@@ -1,0 +1,29 @@
+# docker/ansible/inventories/test/group_vars/all/vars.yml
+hcloud_token: "{{ vault_hcloud_token }}"
+
+hosts_count: 1
+hosts_prefix: cotl-node
+host_status: present
+
+hosts_server_type: cx11
+hosts_image: ubuntu-22.04
+hosts_location: nbg1
+hosts_label: cotl
+#hosts_network: 
+
+hosts_ssh_keys: 
+  - stephan@waldtmann.de
+  - cotl-ansible-control-key
+
+hosts_basic_packets:
+  - git
+  - tcptrack
+  - unzip
+  - dstat
+  - fail2ban
+
+ntp_servers:
+  - 0.de.pool.ntp.org
+  - 1.de.pool.ntp.org
+  - 2.de.pool.ntp.org
+  - 3.de.pool.ntp.org

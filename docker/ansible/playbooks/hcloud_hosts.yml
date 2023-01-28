@@ -1,0 +1,11 @@
+# docker/ansible/playbooks/hcloud_hosts.yml
+---
+# Handle hcloud hosts, install basic packages, add users
+- name: Playbook hcloud_hosts.yml
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Hcloud hosts
+      include_tasks: hcloud_servers.yml
+      loop: "{{ range(1, hosts_count + 1) | list }}"

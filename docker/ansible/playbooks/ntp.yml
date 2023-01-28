@@ -1,0 +1,28 @@
+# docker/ansible/playbooks/ntp.yml
+---
+- name: Playbook ntp label_stream_cache,renderer
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Debug
+    debug:
+      msg: "{{ ntp_servers }}"
+
+  - name: Create /etc/systemd/timesyncd.conf
+    template:
+      src: "{{ playbook_dir }}/../templates/timesyncd.conf.j2"
+      dest: "/etc/systemd/timesyncd.conf"
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    notify: restart ntp
+    # check with # systemctl status systemd-timesyncd
+
+
+  handlers:
+  - name: restart ntp
+    service: 
+      name: systemd-timesyncd
+      state: restarted
