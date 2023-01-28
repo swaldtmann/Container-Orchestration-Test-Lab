@@ -1,0 +1,15 @@
+---
+# docker/ansible/playbooks/local_etc_hosts.yml
+- name: Playbook local_etc_hosts.yml
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: "Build hosts file"
+      lineinfile: 
+        dest: /etc/hosts
+        regexp: '.*{{ item }}$'
+        line: "{{ hostvars[item].ipv4 }} {{item}}"
+        state: "{{ host_status }}"
+      when: hostvars[item].ipv4 is defined
+      loop: "{{ groups['label_cotl']|flatten(levels=1) }}"

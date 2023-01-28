@@ -3,3 +3,4 @@ plugin: hcloud
 keyed_groups:
 - key: labels
   prefix: label
+  trailing_separator: false

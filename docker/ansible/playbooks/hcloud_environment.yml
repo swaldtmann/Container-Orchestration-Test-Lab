@@ -1,0 +1,23 @@
+# docker/ansible/playbooks/hcloud_servers.yml
+---
+
+- name: Add ssh key
+  hcloud_ssh_key:
+    name: cotl-ansible-control-key
+    public_key: "{{lookup('file', '../keep/id_ed25519.pub')}}"
+    state: "{{ host_status }}"
+
+- name: Create internal network
+  hcloud_network:
+    name: "{{ hosts_private_network_name }}"
+    ip_range: "{{ hosts_private_network_net }}"
+    state: "{{ host_status }}"
+
+- name: Create a basic subnetwork
+  hcloud_subnetwork:
+    network: "{{ hosts_private_network_name }}"
+    ip_range:  "{{ hosts_private_network_subnet }}" 
+    network_zone: "{{ hosts_private_network_network_zone }}"
+    type: "{{ hosts_private_network_type }}"
+    state: "{{ host_status }}"
+  when: host_status == "present"

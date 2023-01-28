@@ -1,13 +1,5 @@
 # docker/ansible/playbooks/hcloud_servers.yml
 ---
-
-# 
-- name: Add ssh key
-  hcloud_ssh_key:
-    name: cotl-ansible-control-key
-    public_key: "{{lookup('file', '../keep/id_ed25519.pub')}}"
-    state: "{{ host_status }}"
-
 - name: Create or delete hcloud host status {{ host_status }}
   hcloud_server:
     api_token: "{{ hcloud_token }}"
@@ -15,6 +7,8 @@
     server_type: "{{ hosts_server_type }}"
     image: "{{ hosts_image }}"
     location: "{{ hosts_location }}"
+    enable_ipv4: true
+    enable_ipv6: true
     labels: |
       {
         "{{ hosts_label }}": ""
@@ -27,3 +21,10 @@
 - name: Show created
   debug:
     var: hcloud_hosts
+
+- name: Create a basic server network
+  hcloud_server_network:
+    network: "{{ hosts_private_network_name }}"
+    server: "{{ hosts_prefix }}{{ '-%02x' | format(item) }}"
+    state: "{{ host_status }}"
+  when: host_status == "present"
