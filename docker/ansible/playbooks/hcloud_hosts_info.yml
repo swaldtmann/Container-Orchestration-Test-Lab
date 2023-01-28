@@ -1,0 +1,29 @@
+---
+# docker/ansible/playbooks/hcloud_hosts_info.yml
+- name: Playbook hcloud_hosts_info.yml
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Gather hcloud server infos
+      hcloud_server_info:
+        api_token: "{{ hcloud_token }}"
+      register: serverinfo
+
+    - name: Print the gathered infos
+      ansible.builtin.debug:
+        var: serverinfo.hcloud_server_info
+
+    - name: Gather hcloud network info
+      hcloud_network_info:
+        api_token: "{{ hcloud_token }}"
+      register: netinfo
+
+    - name: Print the gathered info
+      ansible.builtin.debug:
+        var: netinfo.hcloud_network_info
+
+    - name: List hosts
+      ansible.builtin.debug:
+        msg: "{{ hostvars[item].ipv4 }}"
+      loop: "{{ groups['all'] | flatten(levels=1) }}"

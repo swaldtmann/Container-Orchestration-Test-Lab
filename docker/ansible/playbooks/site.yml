@@ -12,3 +12,19 @@
 - name: Ntp configuration for all hosts
   import_playbook: ntp.yml
   tags: ntp
+
+- name: Create /etc/hosts file on every host
+  import_playbook: hcloud_etc_hosts.yml
+  tags: hosts
+
+- name: Show hcloud info about all hosts
+  import_playbook: hcloud_hosts_info.yml
+  tags:
+    - hinfo
+    - never
+
+- name: Show info about all hosts
+  import_playbook: info.yml
+  tags:
+    - info
+    - never
