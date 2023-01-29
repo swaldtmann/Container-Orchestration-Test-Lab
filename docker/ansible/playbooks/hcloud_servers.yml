@@ -19,7 +19,7 @@
   register: hcloud_hosts
 
 - name: Show created
-  debug:
+  ansible.builtin.debug:
     var: hcloud_hosts
 
 - name: Create a basic server network

@@ -7,7 +7,7 @@
 
   tasks:
     - name: Hclound environment
-      include_tasks: hcloud_environment.yml
+      ansible.builtin.include_tasks: hcloud_environment.yml
     - name: Hcloud hosts
-      include_tasks: hcloud_servers.yml
+      ansible.builtin.include_tasks: hcloud_servers.yml
       loop: "{{ range(1, hosts_count + 1) | list }}"
