@@ -1,12 +1,12 @@
 #!/bin/bash
 #set -x
 
-# Erstellen der Hosts
+# Creating hosts
 ./create_hcloud.sh "$@"
 
 sleep 10
 
-# Hosts vorbereiten
+# Custimize hosts
 ./run.sh -t "update,reboot" "$@"
 
 sleep 5
